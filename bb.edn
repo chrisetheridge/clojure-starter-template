@@ -1,0 +1,3 @@
+{:tasks
+ {dev {:doc "Start a dev environment"
+       :task (clojure "-M:dev -m repl.start --config '{:systems [:acme.system/web]}'")}}}

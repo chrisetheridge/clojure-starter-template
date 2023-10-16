@@ -1,0 +1,43 @@
+<configuration debug="false">
+  <!-- prevent per-message overhead for jul logging calls, e.g. Hornet -->
+  <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+
+    <resetJUL>true</resetJUL>
+  </contextListener>
+  <logger name="ch.qos.logback" level="ERROR" />
+  <logger name="org.eclipse.jetty" level="ERROR" />
+  <logger name="datomic" level="WARN" />
+  <logger name="org.apache" level="WARN" />
+  <logger name="org.apache.commons" level="ERROR" />
+  <logger name="org.apache.velocity" level="ERROR" />
+  <logger name="org.owasp.dependencycheck" level="ERROR" />
+  <appender name="STDOUT"
+            class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level - %logger{36} -
+      %msg%n</pattern>
+    </encoder>
+  </appender>
+  <!-- ACME -->
+  <appender name="ACME"
+            class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>logs/cogserver.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+
+      <fileNamePattern>
+      logs/cogserver_%d{yyyy-MM-dd}.log</fileNamePattern>
+      <maxHistory>72</maxHistory>
+    </rollingPolicy>
+    <encoder>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level - %logger{36} -
+      %msg%n</pattern>
+    </encoder>
+  </appender>
+  <logger name="acme" level="INFO">
+    <appender-ref ref="ACME" />
+  </logger>
+  <!-- ROOT -->
+  <root level="INFO">
+    <appender-ref ref="STDOUT" />
+  </root>
+</configuration>

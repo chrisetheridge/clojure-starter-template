@@ -1,0 +1,9 @@
+{:config {:datomic {:uri "datomic:dev://localhost:4334/acme"}}
+
+ :acme.system/datomic {:uri #ref [:config :datomic :uri]}
+
+ :acme.system/nrepl {:port   9993
+                     :local? true}
+
+ :acme.system/web {:nrepl   #ig/ref :acme.system/nrepl
+                   :datomic #ig/ref :acme.system/datomic}}
